@@ -1,30 +1,48 @@
-import { useEffect, useRef } from "react";
-import React from 'react';
+import { useState, useEffect } from "react";
+import { AdvancedImage } from '@cloudinary/react';
+import { Cloudinary } from "@cloudinary/url-gen";
 
 const Works = () => {
-
-    const galleryRef = useRef();
+    const [images, setImages] = useState([]);
 
     useEffect(() => {
-        if (window && galleryRef.current) {
-            window.cloudinary
-                .galleryWidget({
-                    container: galleryRef.current,
-                    cloudName: import.meta.env.VITE_CLOUDINARY_CLOUD_NAME,
-                    aspectRatio: "16:9",
-                    mediaAssets: [
-                        { tag: "react-image-gallery-images", transformation: { crop: "fill" } },
-                        { tag: "react-image-gallery-videos", mediaType: "video", transformation: { crop: "fill" } },
-                    ],
-                    // carouselStyle: "indicators",
-                    // carouselLocation: "bottom",
-                })
-                .render();
-        }
+        const fetchImages = async () => {
+            try {
+                const response = await fetch("http://localhost:3001/api/images-by-tag?tag=test");
+                const data = await response.json();
+                setImages(data); // Array of image details
+            } catch (error) {
+                console.error("Error fetching images:", error);
+            }
+        };
+
+        fetchImages();
     }, []);
+
+    const cld = new Cloudinary({
+        cloud: {
+            cloudName: "dzewzsbby"
+        },
+        tag: {}
+
+    })
+    
+
+
     return (
         <div>
-            <div className="container"></div>
+            <div className="flex items-center gap-4 flex-wrap">
+                {images.map((img) => {
+                    const image = cld.image(img.public_id);
+                    return (
+                        <AdvancedImage
+                            key={img.public_id}
+                            cldImg={image}
+                            className="w-[340px] h-[420px]"
+                        />
+                    );
+                })}
+            </div>
         </div>
     );
 }
