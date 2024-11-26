@@ -4,14 +4,9 @@ const cors = require("cors");
 const path = require("path");
 require('dotenv').config();
 
-
 const app = express();
 app.use(cors()); // Enable CORS to allow frontend access
 app.use(express.json()); // Parse JSON bodies (if needed for future endpoints)
-
-
-// Serve the React build folder
-app.use(express.static(path.join(__dirname, "../frontend/build")));
 
 // Configure Cloudinary
 cloudinary.config({
@@ -32,10 +27,6 @@ app.get("/api/images-by-tag", async (req, res) => {
     }
 });
 
-// Handle all other requests by serving React's index.html
-app.get("*", (req, res) => {
-    res.sendFile(path.join(__dirname, "../frontend/build/index.html"));
-});
 
 // Start the server
 const PORT = 3001;
