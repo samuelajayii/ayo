@@ -23,7 +23,6 @@ const Works = () => {
         cloud: {
             cloudName: "dzewzsbby"
         },
-        tag: {}
 
     })
     
@@ -31,7 +30,7 @@ const Works = () => {
 
     return (
         <div>
-            <div className="flex items-center gap-4 flex-wrap">
+            <div className="flex items-center justify-center gap-4 flex-wrap">
                 {images.map((img) => {
                     const image = cld.image(img.public_id);
                     return (
