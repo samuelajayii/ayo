@@ -34,7 +34,7 @@ app.get("/api/images-by-tag", async (req, res) => {
 
 // Handle all other requests by serving React's index.html
 app.get("*", (req, res) => {
-    res.sendFile(path.join(__dirname, "../client/build/index.html"));
+    res.sendFile(path.join(__dirname, "../frontend/build/index.html"));
 });
 
 // Start the server
