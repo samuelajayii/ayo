@@ -8,7 +8,7 @@ const Works = () => {
     useEffect(() => {
         const fetchImages = async () => {
             try {
-                const response = await fetch("http://localhost:3001/api/images-by-tag?tag=test");
+                const response = await fetch("https://ayo-portfolio.onrender.com/api/images-by-tag");
                 const data = await response.json();
                 setImages(data); // Array of image details
             } catch (error) {
