@@ -1,5 +1,4 @@
 import NavBar from "./NavBar";
-import Works from "./Works";
 import { Outlet } from "react-router-dom";
 
 function App() {
